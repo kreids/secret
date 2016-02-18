@@ -1,0 +1,78 @@
+[33m[nodemon] 1.8.1[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `node app.js`[39m
+Author: Rohan Alur (ralur) & Don Yu (dyu)
+Server running on port 8080. Now open http://localhost:8080/ in your browser!
+Rohan Alur (ralur)
+::1 - - [Thu, 17 Dec 2015 17:33:44 GMT] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:33:47 GMT] "POST /authenticate HTTP/1.1" 200 0 "http://localhost:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:33:47 GMT] "GET /feed HTTP/1.1" 200 8060 "http://localhost:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:33:48 GMT] "POST /getFeedPosts HTTP/1.1" 200 5928 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:33:54 GMT] "POST /getFeedPosts HTTP/1.1" 200 5928 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:33:58 GMT] "POST /addComment HTTP/1.1" 200 0 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:34:01 GMT] "POST /getFeedPosts HTTP/1.1" 200 6276 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+[33m[nodemon] 1.8.1[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `node app.js`[39m
+Author: Rohan Alur (ralur) & Don Yu (dyu)
+Server running on port 8080. Now open http://localhost:8080/ in your browser!
+Rohan Alur (ralur)
+::1 - - [Thu, 17 Dec 2015 17:46:48 GMT] "GET / HTTP/1.1" 304 - "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:46:50 GMT] "POST /authenticate HTTP/1.1" 200 0 "http://localhost:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:46:51 GMT] "GET /feed HTTP/1.1" 304 - "http://localhost:8080/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:46:52 GMT] "POST /getFeedPosts HTTP/1.1" 200 6198 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:46:57 GMT] "POST /getFeedPosts HTTP/1.1" 200 6198 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:46:59 GMT] "GET /profile HTTP/1.1" 304 - "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:46:59 GMT] "POST /getWall HTTP/1.1" 200 4536 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:05 GMT] "POST /getWall HTTP/1.1" 200 4536 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:10 GMT] "POST /getWall HTTP/1.1" 200 4536 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:11 GMT] "POST /addPost HTTP/1.1" 200 56 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:12 GMT] "POST /getWall HTTP/1.1" 200 4854 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:15 GMT] "POST /getWall HTTP/1.1" 200 4854 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:18 GMT] "POST /getWall HTTP/1.1" 200 4854 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:18 GMT] "GET /profile?email=dyu%40seas.upenn.edu HTTP/1.1" 200 14099 "http://localhost:8080/profile" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:19 GMT] "POST /getWall HTTP/1.1" 200 3740 "http://localhost:8080/profile?email=dyu%40seas.upenn.edu" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:24 GMT] "POST /addPost HTTP/1.1" 200 52 "http://localhost:8080/profile?email=dyu%40seas.upenn.edu" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:25 GMT] "POST /getWall HTTP/1.1" 200 4057 "http://localhost:8080/profile?email=dyu%40seas.upenn.edu" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:25 GMT] "POST /getWall HTTP/1.1" 200 4057 "http://localhost:8080/profile?email=dyu%40seas.upenn.edu" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:28 GMT] "GET /feed HTTP/1.1" 304 - "http://localhost:8080/profile?email=dyu%40seas.upenn.edu" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:29 GMT] "POST /getFeedPosts HTTP/1.1" 200 6515 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:33 GMT] "GET /getFriendSuggestions?text=t HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:34 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:34 GMT] "GET /getFriendSuggestions?text=d HTTP/1.1" 200 14 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:34 GMT] "POST /getFeedPosts HTTP/1.1" 200 6515 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:35 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:35 GMT] "GET /getFriendSuggestions?text=m HTTP/1.1" 200 39 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:35 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:36 GMT] "GET /getFriendSuggestions?text=m HTTP/1.1" 200 39 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:38 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:38 GMT] "GET /getFriendSuggestions?text=j HTTP/1.1" 200 22 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:38 GMT] "GET /getFriendSuggestions?text=jo HTTP/1.1" 200 22 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:39 GMT] "GET /getFriendSuggestions?text=j HTTP/1.1" 200 22 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:39 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:39 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:39 GMT] "POST /getFeedPosts HTTP/1.1" 200 6515 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:41 GMT] "GET /getFriendSuggestions?text=r HTTP/1.1" 200 36 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:42 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+::1 - - [Thu, 17 Dec 2015 17:47:42 GMT] "GET /getFriendSuggestions?text= HTTP/1.1" 200 2 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"
+null
+::1 - - [Thu, 17 Dec 2015 17:47:45 GMT] "POST /getFeedPosts HTTP/1.1" 200 6515 "http://localhost:8080/feed" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.73 Safari/537.36"

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>User Profile</title>
+	<link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+	</script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+	<script>
+	var names = []; // stores suggestions for autocomplete in search bar
+	
+	$(document).ready(function() {
+		loadAutocomplete();
+		var h2 = document.createElement('H2');
+		h2.innerHTML = 'Friend Recommendations';
+		$('#headerDiv').append(h2);
+		$("#searchBar").keyup(getFriendSuggestions);
+		var results = <%- JSON.stringify(result) %>;
+		if (results.length == 0) {
+			appendResult(null);
+		}
+		results.forEach(function(result) {
+			appendResult(result);
+		});
+	});
+
+	
+	// Renders each post on page load
+	var appendResult = function(result) {
+
+		var container = document.createElement('div');
+		$(container).addClass('row').addClass('post');
+		var h3 = document.createElement('h4');
+		$(h3).addClass('col-sm-offset-1');
+		if (result) {
+			h3.innerHTML = '<a href=/profile?email=' + result.email + '>' +result.name + '</a>';
+		}
+		else {
+			h3.innerHTML = 'No friend recommendations to display at this time';
+		}
+		
+		$(h3).addClass('row');
+		$(container).append(h3);
+		
+		$("#postContainer").append(container);
+		
+	};
+
+	
+	// Retrieves list of autocomplete suggestions from server
+	var getFriendSuggestions = function() {
+		$.get('/getFriendSuggestions', 
+		{
+			text: $("#searchBar").val()
+		},
+		function(data, status) {
+			if (data) {
+				$('#searchBar').autocomplete({
+					source: data,
+					noResults:''
+				});
+			}
+		});
+	};
+	// initializes autcomplete for search bar
+	var loadAutocomplete = function() {
+
+		$('#searchBar').autocomplete({
+			source: names,
+			noResults:'',
+			onSelect: function (suggestion) {
+				alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+			}
+		});
+	};
+
+	var validate = function(form) {
+		var text = form.search.value;
+		if (text != '')
+			return true;
+		return false;
+	};
+
+	</script>
+
+	<style type="text/css">
+
+	body {
+		padding-top: 40px;
+		padding-bottom: 40px;
+		background-color: white;
+
+	}
+	.about{
+		position: relative;
+		overflow: hidden;
+	}
+	.info {
+		position:absolute;
+		top:10%;
+		background:rgba(100, 130, 161, 0.90);
+		width:100%;
+		height:100%;
+		padding:1%;
+		display: none;
+		text-align:center;
+		color:#fff
+	}
+	.btn {
+		width: 110px;
+		height: 35px;
+	}
+	.green {
+		color: #16b616;
+	}
+
+	input {
+		width: 100%;
+		height: 35px;
+	}
+	h3{
+		text-align: center;
+		font-size: 200%;
+	}
+	h4{
+		font-size: 180%;
+	}
+
+	.right {
+		float: right;
+	}
+	.left {
+		float: left;
+	}
+	.grow {
+		transition: all .2s ease-in-out; 
+	}
+	.grow:hover {
+		-webkit-transform: scale(1.05);
+		-moz-transform:    scale(1.05);
+		-o-transform:      scale(1.05);
+		-ms-transform:     scale(1.05);
+	}
+	.post {
+		padding-bottom: 10px;
+	}
+	.ui-helper-hidden-accessible { 
+		display:none; 
+	}
+	</style>
+
+
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+
+				<a class="navbar-brand" href="#">Pennbook</a>
+			</div>
+
+			<div class="collapse navbar-collapse">
+				<form class="navbar-form navbar-right" role="search" action='/search' method='POST' onsubmit='return validate(this)'>
+					<div class="form-group">
+						<input type="text" class="form-control" name='search' placeholder="Search" id='searchBar'>
+						<input type='submit' class='form-control' style='height:33px'>
+					</div>
+					
+
+					</form>
+
+				</div>
+			</div>
+		</nav>
+		<div class='row'>
+			<div class='col-sm-5 col-sm-offset-1 page-header' id='headerDiv'>
+
+			</div>
+		</div>
+		<div class='row'>
+
+			<div class='col-sm-4 col-sm-offset-7'>
+				<a href='/feed' class='btn btn-warning right'>Newsfeed</a>
+
+				<div id='friendContainer'>
+
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-5 col-sm-offset-1' id='postContainer'>
+
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-4 col-sm-offset-7'>
+				<a href='/logout' class='btn btn-danger grow right'>Logout</a>
+			</div>
+		</div>
+	</body>
+	</html>

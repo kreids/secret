@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Pennbook</title>
+	<link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+	</script>
+
+	<script>
+	$( document ).ready(function() {  
+		
+		$('.about').hover(
+			function(){
+		            $(this).find('.info').slideDown(200); //.fadeIn(300)
+		        },
+		        function(){
+		            $(this).find('.info').slideUp(200); //.fadeOut(300)
+		        }
+		        );
+		$('#signUpBtn').click(function() {
+			$("#checkmark").hide(); 
+			$(':input').not(':input[type=submit]').val('');
+			$("#loginForm").slideUp(150);
+			$("#signUpForm").slideDown(150);
+
+		});
+		$('#backToLogin').click(function() {
+			$("#checkmark").hide(); 
+			$(':input').not(':input[type=submit]').val('');
+			$("#signUpForm").slideUp(150);
+			$("#loginForm").slideDown(150);
+		});  
+
+		$('#signUpForm').keyup(function() {
+			var pw1 = $('#password1').val();
+			var pw2 = $('#password2').val();
+			if (pw1 != "" && pw1 == pw2) {
+				$('#checkmark').slideDown(150);
+			}
+			else {
+				$('#checkmark').slideUp(150);
+			}
+			
+		});
+
+
+	});
+
+	var checkPass = function(form) {
+
+		$.post('/authenticate', 
+		{
+			email: String(form.email.value),
+			password: String(form.password.value)
+		},
+		function(data, status) {
+			if (data) {
+				alert(data);
+			}
+			else {
+				window.location.replace('/feed');
+			}
+		});
+		return false;
+	};
+	var createAccount = function(form) {
+		var name = form.fullName.value;
+		var email = form.email.value;
+		var pw1 = form.password1.value;
+		var pw2 = form.password2.value;
+		var affiliation = form.affiliation.value;
+		var day = form.day.value;
+		var month = form.month.value;
+		var year = form.year.value;
+		var inputs = [name, email, pw1, pw2, affiliation, day, month, year];
+		inputs.forEach(function(input) {
+			if (!input || input == "") {
+				return false;
+			}
+		});
+		if (pw1 == pw2) {
+			return true;
+		}
+		return false;
+	};
+	var addDays = function(){
+		var dayHTML = "";
+		for(var i = 1; i < 32; i++){
+			if (i == 26) {
+				dayHTML += "<option selected=\"selected\">" + String(i) + "</option>";
+			}
+			else {
+				dayHTML += "<option>" + String(i) + "</option>";
+			}
+		}
+		var day = document.getElementById("day").innerHTML = dayHTML;
+	}
+	var addMonths = function(){
+		var monthHTML = "";
+		for(var i = 1; i < 13; i++){
+			if (i == 3) {
+				monthHTML += "<option selected=\"selected\">" + String(i) + "</option>"
+			}
+			else {
+				monthHTML += "<option>" + String(i) + "</option>";
+			}
+		}
+		var month = document.getElementById("month").innerHTML = monthHTML;
+	}
+	var addYears = function(){
+		var yearHTML = "";
+		for(var i = 1960; i < 2015; i++){
+			if (i == 1996) {
+				yearHTML += "<option selected=\"selected\">" + String(i) + "</option>";
+			}
+			else {
+				yearHTML += "<option>" + String(i) + "</option>";
+			}
+		}
+		var year = document.getElementById("year").innerHTML = yearHTML;
+	}
+	</script>
+
+	<style type="text/css">
+
+
+	body {
+		padding-top: 40px;
+		padding-bottom: 40px;
+		background-color: white;
+
+	}
+	.about{
+		position: relative;
+		overflow: hidden;
+	}
+	.info {
+		position:absolute;
+		top:10%;
+		background:rgba(100, 130, 161, 0.90);
+		width:100%;
+		height:100%;
+		padding:1%;
+		display: none;
+		text-align:center;
+		color:#fff
+	}
+	.fixBtnWidth {
+		width: 110px;
+		height: 35px;
+	}
+	.green {
+		color: #16b616;
+	}
+
+	input {
+		width: 100%;
+		height: 35px;
+	}
+	h3{
+		text-align: center;
+		font-size: 200%;
+	}
+	h4{
+		font-size: 180%;
+	}
+
+	.right {
+		float: right;
+	}
+	.grow {
+		transition: all .2s ease-in-out; 
+	}
+	.grow:hover {
+		-webkit-transform: scale(1.05);
+		-moz-transform:    scale(1.05);
+		-o-transform:      scale(1.05);
+		-ms-transform:     scale(1.05);
+	}
+	</style>
+
+
+</head>
+<body>
+
+	<div class="row">	
+		<div class='col-sm-4 col-sm-offset-6'>
+			<div class='page-header'>
+				<h1>SmartScreen</h1>
+			</div>
+			<font color="black">
+				<form id='loginForm' class='form-horizontal' action="/authenticate" method="post" role="form" onsubmit="return checkPass(this)">
+					<div class="form-group">
+						<input class='col-sm-8 grow' type="text" name="email" required class="form-control" placeholder="Email"></input>  
+						<a id='signUpBtn' class="btn btn-info fixBtnWidth grow right">Sign Up</a>
+					</div>
+					<div class="form-group">
+						<input class='col-sm-8 grow' type="password" name="password" required class="form-control" placeholder="Password"></input>
+						<input type='submit' class='btn btn-primary fixBtnWidth grow right' value='Login'>
+					</div>
+					<div class="about form-group" style="height:50px">
+
+						<div class="info" style="height:50px">
+							<h5>Created by Rohan Alur, Don Yu and Steve Kreider</h5>
+						</div>
+					</div>
+				</form>
+				<form id='signUpForm' role='form' method='post' action='/createaccount' class='form-horizontal' 
+				onsubmit="return createAccount(this)" hidden>
+				<div class='form-group'>
+					<input class='col-sm-8 grow' name='fullName' required class='form-control' placeholder='Full Name'></input>
+					<a id='backToLogin' class='btn btn-primary fixBtnWidth grow right'>Back to Login</a>
+				</div>
+				<div class='form-group'>
+					<input class='col-sm-8 grow' name='email' required class='form-control' placeholder='Email Address'></input>
+				</div>
+				<div class='form-group'>
+					<input type='password' class='col-sm-8 grow' id='password1' name='password1' required class='form-control' placeholder='Password'></input>
+				</div>
+				<div class='form-group'>
+					<input class='col-sm-8 grow' type='password' id='password2' name='password2' required class='form-control' placeholder='Confirm Password'></input>
+					&nbsp;&nbsp;&nbsp;
+					<span id='checkmark' class='glyphicon glyphicon-ok green grow' hidden/>
+				</div>
+				<div class='form-group'>
+					<input type='text' class='col-sm-8 grow' id='affiliation' name='affiliation' required class='form-control' placeholder='Zip Code'></input>
+				</div>
+				<div class='form-group'>
+					
+					<select class='col-sm-2' required placeholder='Day' name='day' class='form-control' id='day'/></select>
+					<script>addDays();</script>
+					&nbsp;&nbsp;
+
+					<select class='col-sm-2' required placeholder='Month' name='month' class='form-control' id='month'/></select>
+					<script>addMonths();</script>
+					&nbsp;&nbsp;
+					<select class='col-sm-2' required placeholder='Year' name='year' class='form-control' id='year'/></select>
+					&nbsp;&nbsp;
+					<script>addYears();</script>
+					<input class='btn btn-info grow right fixBtnWidth' type='submit' value='Sign Up'/>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>

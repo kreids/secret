@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Newsfeed</title>
+	<link rel="stylesheet" href="http://getbootstrap.com/dist/css/bootstrap.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+	</script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+	<script>
+	var names = []; // stores suggestions for autocomplete in search bar
+	var posts = {}; // client side list of posts
+	$(document).ready(function() {  
+		$.post('/getFeedPosts', 
+		{
+			userEmail: <%- JSON.stringify(userEmail) %>
+		},
+		function(data, status) {
+			if (data) {
+				setTimeout(refresh, 5000);
+				var h2 = document.createElement('H2');
+				h2.innerHTML = <%- JSON.stringify(userName) %>
+				$('#headerDiv').append(h2); // name of logged in user
+
+				loadAutocomplete();
+				$("#searchBar").keyup(getFriendSuggestions);
+				data.posts.forEach(function(post) {
+					var key = post.key;
+					posts[key] = post;
+					appendPost(post, false);
+				});
+			}
+			else {
+				var error = document.createElement('label');
+				$(document.body).append(error);
+			}
+		});
+	});
+
+	
+	// Renders each post
+	var appendPost = function(post, newPost) {
+		console.log(post);
+		var container = document.createElement('div');
+		$(container).addClass('row').addClass('post');
+
+		var h5 = document.createElement('h5');
+		if (post.fromName == post.toName) {
+			h5.innerHTML = post.fromName;
+		}
+		else if (post.content == 'friendship') {
+			h5.innerHTML = post.fromName +  '<span class="glyphicon glyphicon-menu-left"></span>' +
+		'<span class="glyphicon glyphicon-menu-right"></span>' +  post.toName;
+		}
+		else {
+			h5.innerHTML = post.fromName +  '<span class="glyphicon glyphicon-menu-right"></span>' +  post.toName;
+		}
+		$(h5).addClass('row');
+		$(container).append(h5);
+
+		var date = document.createElement('div');
+		var stringDate = new Date(post.createdAt).toString();
+		$(date).addClass('right').addClass('row');
+		date.innerHTML = stringDate.substring(0, stringDate.length - 15);
+		$(container).append(date);
+
+		var content = document.createElement('div');
+		if (post.content == 'friendship') {
+			content.innerHTML = post.fromName + ' became friends with ' + post.toName;
+		}
+		else {
+			content.innerHTML = post.content;
+		}
+		$(content).addClass('row');
+		$(container).append(content);
+
+		var commentContainer = makeCommentBox(post);
+		$(container).append(commentContainer);		
+
+		var dividerDiv = document.createElement('DIV');
+		var divider = document.createElement('SPAN');
+		$(dividerDiv).addClass('col-sm-10')
+		$(dividerDiv).append(divider);
+		$(divider).addClass('divider');
+		$(container).append(dividerDiv);
+
+		if (newPost) {
+			$("#postContainer").prepend(container);
+		}
+		else {
+			$("#postContainer").append(container);
+		}
+	};
+
+	// renders the comment box for each post
+	var makeCommentBox = function(post) {
+		var commentContainer = document.createElement('div');
+		$(commentContainer).addClass('row').addClass('col-sm-offset-1');
+		for(var index in post.comments) { 
+    		var comment = post.comments[index];
+    		prependComment(comment, commentContainer);
+		}
+
+		var commentBox = document.createElement('input');
+		$(commentBox).attr('type', 'text').attr('placeholder', 'add comment').attr('name', 'comment');
+		$(commentBox).attr('style', 'height: 30px');
+		$(commentBox).addClass('line-up');
+
+		var commentSubmit = document.createElement('input');
+		$(commentSubmit).attr('type', 'submit');
+		$(commentSubmit).addClass('right').addClass('line-up').addClass('col-sm-2').addClass('col-sm-offset-9').addClass('btn btn-info grow');
+
+		$(commentContainer).append(commentBox);
+		$(commentContainer).append(commentSubmit);		
+		$(commentContainer).attr('id', post.key + 'commentContainer');
+
+
+		$(commentSubmit).click(function() {
+			if ($(commentBox).val() && $(commentBox).val() != '') {
+			$.post('/addComment',
+			{
+				postKey: post.key,
+				commentorEmail: <%- JSON.stringify(userEmail) %>,
+				comment: $(commentBox).val()
+			}, function(error, status) {
+				if (!error || error != '') {
+					alert('comment added successfully');
+					$(commentBox).val('');
+				}
+				else {
+					alert('error adding comment');
+				}
+			});
+		}
+		});
+
+		return commentContainer;
+	};
+
+	// renders a comment
+	var prependComment = function(comment, commentContainer) {
+		var commentDiv = document.createElement('div');
+		var contentDiv = document.createElement('div');
+		
+		contentDiv.innerHTML = comment.content + '  - ' + comment.commentorName;
+		
+		$(commentDiv).append(contentDiv);
+		$(commentContainer).prepend(commentDiv);
+	};
+
+	// Retrieves list of autocomplete suggestions from server
+	var getFriendSuggestions = function() {
+		$.get('/getFriendSuggestions', 
+		{
+			text: $("#searchBar").val()
+		},
+		function(data, status) {
+			if (data) {
+				$('#searchBar').autocomplete({
+					source: data,
+					noResults:''
+				});
+			}
+		});
+	};
+	// initializes autcomplete for search bar
+	var loadAutocomplete = function() {
+
+		$('#searchBar').autocomplete({
+			source: names,
+			noResults:'',
+			onSelect: function (suggestion) {
+				alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+			}
+		});
+	};
+
+	// refreshes page with new posts
+	var refresh = function() {
+		$.post('/getFeedPosts', 
+		{
+			email: <%- JSON.stringify(userEmail) %>
+		},
+		function(data, status) {
+			if (data) {
+				data.posts.forEach(function(post) {
+					var key = post.key;
+					var oldPost = posts[key];
+					if (!oldPost) { // this post is new and needs to be rendered
+						appendPost(post, true);
+						posts[key] = post;
+					}
+					else {
+						var commentKeys = Object.keys(post.comments);
+						commentKeys.forEach(function(commentKey) {
+							var oldComment = oldPost.comments[commentKey];
+							if (!oldComment) { // this comment is new and needs to be rendered
+								var commentContainer = document.getElementById(String(oldPost.key) + 'commentContainer');
+								prependComment(post.comments[commentKey], commentContainer);
+								oldPost.comments[commentKey] = post.comments[commentKey];
+							}
+						});
+					}
+				});
+			}
+		});
+		setTimeout(refresh, 5000);
+	};
+	// validate search bar submission
+	var validate = function(form) {
+		var text = form.search.value;
+		if (text != '')
+			return true;
+		return false;
+	};
+
+	</script>
+
+	<style type="text/css">
+
+
+	body {
+		padding-top: 40px;
+		padding-bottom: 40px;
+		background-color: white;
+
+	}
+	.about{
+		position: relative;
+		overflow: hidden;
+	}
+	.info {
+		position:absolute;
+		top:10%;
+		background:rgba(100, 130, 161, 0.90);
+		width:100%;
+		height:100%;
+		padding:1%;
+		display: none;
+		text-align:center;
+		color:#fff
+	}
+	.divider {
+    	display:block;
+   		border:none;
+   		color:white;
+   		height:1px;
+   		background:black;
+   		background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
+}
+	.btn {
+		width: 110px;
+		height: 35px;
+	}
+	.green {
+		color: #16b616;
+	}
+
+	input {
+		width: 100%;
+		height: 35px;
+	}
+	h3{
+		text-align: center;
+		font-size: 200%;
+	}
+	h4{
+		font-size: 180%;
+	}
+
+	.right {
+		float: right;
+	}
+	.left {
+		float: left;
+	}
+	.grow {
+		transition: all .2s ease-in-out; 
+	}
+	.grow:hover {
+		-webkit-transform: scale(1.05);
+		-moz-transform:    scale(1.05);
+		-o-transform:      scale(1.05);
+		-ms-transform:     scale(1.05);
+	}
+	.post {
+		padding-bottom: 10px;
+	}
+	.ui-helper-hidden-accessible { 
+		display:none; 
+	}
+	</style>
+
+
+</head>
+<body>
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<div class="navbar-header">
+
+				<a class="navbar-brand" href="/feed">Pennbook</a>
+			</div>
+
+			<div class="collapse navbar-collapse">
+				<form class="navbar-form navbar-right" role="search" action='/search' method='POST' onsubmit='return validate(this)'>
+					<div class="form-group">
+						<input type="text" class="form-control" name='search' placeholder="Search" id='searchBar'>
+						<input type='submit' class='form-control' style='height:33px'>
+					</div>
+					
+
+					</form>
+
+				</div>
+			</div>
+		</nav>
+		<div class='row'>
+			<div class='col-sm-5 col-sm-offset-1 page-header' id='headerDiv'>
+
+			</div>
+		</div>
+		<div class='row'>
+
+			<div class='col-sm-4 col-sm-offset-7'>
+			    <a href='/profile' class='btn btn-warning right grow'>Profile</a>
+
+				<div id='friendContainer'>
+
+				</div>
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-5 col-sm-offset-1' id='postContainer'>
+
+			</div>
+		</div>
+		<div class='row'>
+			<div class='col-sm-4 col-sm-offset-7'>
+			<a href='/visualizer' class='btn btn-warning grow'>Visualizer</a>
+			<a href='/recommendations' class='btn btn-info grow'>Find Friends</a>
+				<a href='/logout' class='btn btn-danger grow right'>Logout</a>
+			</div>
+		</div>
+	</body>
+	</html>

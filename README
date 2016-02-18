@@ -1,0 +1,31 @@
+Full name: Rohan Alur, Don Yu
+SEAS login: ralur, dyu
+
+Which features did you implement? 
+  (list features, or write 'Entire assignment')
+Entire assignment
+
+Did you complete any extra-credit tasks? If so, which ones?
+  (list extra-credit tasks)
+No
+
+Did you personally write _all_ the code you are submitting
+(other than code from the course web page)?
+  [x] Yes
+  [ ] No
+
+Did you copy any code from the Internet, or from classmates?
+  [ ] Yes
+  [x] No
+
+Did you collaborate with anyone on this assignment?
+  [ ] Yes
+  [x] No
+
+How to run:
+	- To run actual app -> node app.js
+	- To run any loader -> 
+		- For each dependency listed at top of loader, change the address to 
+			double periods instead of single period because of directory change
+			(Change address back to original afterwards to run app again)
+		- run -> node "loader.js"
