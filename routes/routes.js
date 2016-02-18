@@ -1,4 +1,4 @@
-var db = require('../models/database.js');
+
 var async = require('async');
 var passwordHash = require('password-hash');
 
