@@ -1,3 +1,9 @@
+
+//add db
+//var db = require('mongodb').MongoClient;
+
+var mongoose = require('mongoose');
+var user = require('../models/user.js')
 	
 var async = require('async');
 var passwordHash = require('password-hash');
@@ -24,7 +30,20 @@ var createAccount = function(req, res) {
 	var year = req.body.year;
 	var hashedPassword = passwordHash.generate(password);
 
-	db.addUser(email, name, hashedPassword, affiliation, "empty", month + "-" + day + "-" + year, function(error) {
+	var userToAdd = new user({
+		name: name,
+		email: email,
+		password: hashedPassword,
+		day: day,
+		month: month,
+		year: year
+	})
+	userToAdd.save(function(err){
+		if(err) throw err;
+		console.log("user made");
+	})
+
+	/*db.addUser(email, name, hashedPassword, affiliation, "empty", month + "-" + day + "-" + year, function(error) {
 		if (error) {
 			log_out(req, res);
 		}
@@ -32,7 +51,7 @@ var createAccount = function(req, res) {
 			req.session.email = email;
 			getFeed(req, res);
 		}
-	});
+	});*/
 
 };
 
