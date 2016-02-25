@@ -8,6 +8,9 @@ var express = require('express');
 var routes = require('./routes/routes.js');
 var app = express();
 var vogels = require('vogels');
+var mongoose = require('mongoose');
+
+mongoose.connect('104.236.195.8:27017');
 
 vogels.AWS.config.loadFromPath('./config.json');
 
