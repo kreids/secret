@@ -1,3 +1,9 @@
+
+//add db
+//var db = require('mongodb').MongoClient;
+
+var mongoose = require('mongoose');
+var user = require('../models/user.js')
 	
 var async = require('async');
 var passwordHash = require('password-hash');
@@ -24,7 +30,20 @@ var createAccount = function(req, res) {
 	var year = req.body.year;
 	var hashedPassword = passwordHash.generate(password);
 
-	db.addUser(email, name, hashedPassword, affiliation, "empty", month + "-" + day + "-" + year, function(error) {
+	var userToAdd = new user({
+		name: name,
+		email: email,
+		password: hashedPassword,
+		day: day,
+		month: month,
+		year: year
+	})
+	userToAdd.save(function(err){
+		if(err) throw err;
+		console.log("user made");
+	})
+
+	/*db.addUser(email, name, hashedPassword, affiliation, "empty", month + "-" + day + "-" + year, function(error) {
 		if (error) {
 			log_out(req, res);
 		}
@@ -32,17 +51,29 @@ var createAccount = function(req, res) {
 			req.session.email = email;
 			getFeed(req, res);
 		}
-	});
+	});*/
 
 };
 
 // ensure password matches username
 var checkPass = function(req, res) {
+	console.log("checkPass...")
 	var email = req.body.email;
 	var password = req.body.password;
+	console.log(email + ' ' + password)
 	if (email && password) {
-		db.getUserInfo(email, function(error, userInfo) {
+		console.log("not null")
+		user.findOne({'email': email}, function(err,fuser){
+			console.log("found "+ fuser.email+ " "+
+				passwordHash.verify(password, fuser.password))
+		})
+	}
+
+		
+		
+		/*db.getUserInfo(email, function(error, userInfo) {
 			if (error || !userInfo) {
+				console.log("");
 				res.send('the username and password you entered did not match our records', 200);
 			}
 			else {
@@ -66,8 +97,7 @@ var checkPass = function(req, res) {
 	}
 	else {
 		res.send('The email and password you entered did not match', 200);
-	}
-};
+	}*/};
 
 // looks up users for a given search query
 var userLookup = function(req, res) {
