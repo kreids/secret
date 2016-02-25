@@ -13,7 +13,7 @@
       "lru-cache" : "*",
       "vogels" : "2.1.0",
       "joi" : "6.10.0",
-      "password-hash" : "*"
+      "password-hash" : "*",
       "mongodb" : "*",
       "mongoose" : "*",
       "weather-zip" : "*"
