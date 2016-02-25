@@ -15,13 +15,14 @@ mongoose.connect('104.236.195.8:27017');
 //mongoshit
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/myDB', function(err) {
+
+/*mongoose.connect('mongodb://localhost/myDB', function(err) {
     if(err) {
         console.log('DB connection error', err);
     } else {
         console.log('Db connection successful');
     }
-});
+});*/
 
 
 //mongoose.connect('mongodb://localhost/myDB');
